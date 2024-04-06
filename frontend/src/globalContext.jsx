@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const BASE_URL = "http://localhost:5000/api/v1/";
 
 
-const GlobalContext = React.createContext()
+export const GlobalContext = React.createContext()
 
 export const GlobalProvider = ({children}) => {
 
@@ -112,6 +112,3 @@ export const GlobalProvider = ({children}) => {
     )
 }
 
-export const useGlobalContext = () =>{
-    return useContext(GlobalContext)
-}
