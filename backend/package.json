@@ -1,0 +1,34 @@
+{
+  "name": "wildhacks",
+  "version": "1.0.0",
+  "description": "Wildhacks code",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "prettier . --write && nodemon app.js",
+    "format": "prettier src --check",
+    "format-write": "prettier src --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jaymeet2003/WildHacks.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jaymeet2003/WildHacks/issues"
+  },
+  "homepage": "https://github.com/Jaymeet2003/WildHacks#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.0",
+    "openai": "^4.33.0"
+  },
+  "devDependencies": {
+    "prettier": "3.2.5"
+  }
+}
