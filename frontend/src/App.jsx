@@ -3,13 +3,15 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import Dashboard from "./dashboard.jsx";
+import LoginPage from "./Loginpage.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <Dashboard />
+      <LoginPage/>
+      
     </>
   );
 }
