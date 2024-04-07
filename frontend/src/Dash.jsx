@@ -10,6 +10,7 @@ import Expenses from './Expenses';
 import { useGlobalContext } from './useGlobalContext';
 import History from './History';
 import SavingsBatl from './SavingsBatl';
+import Retirement from './Retirement';
 function Dash() {
     const [active, setActive] = useState(1)    
     const global = useGlobalContext()
@@ -29,6 +30,8 @@ function Dash() {
             return <Expenses />
         case 5:
             return <SavingsBatl />
+        case 7: 
+            return <Retirement />
         default: 
             return <Dashboard />
         }

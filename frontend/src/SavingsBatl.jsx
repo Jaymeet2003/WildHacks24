@@ -8,7 +8,7 @@ function Table() {
     useEffect(() => {
         const intervalId = setInterval(() => {
           getUsers();
-        }, 10000); // Fetches user data every 10 seconds
+        }, 60000); // Fetches user data every 10 seconds
     
         return () => clearInterval(intervalId); // Clears interval on component unmount
     }, []);

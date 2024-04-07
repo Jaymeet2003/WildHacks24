@@ -11,7 +11,7 @@ export const GlobalContext = React.createContext()
 export const GlobalProvider = ({children}) => {
 
     const [incomes, setIncomes] = useState([])
-    
+    const [retirement, setRetirement] = useState([]);
     const [users, setUsers] = useState([]);
     const [expenses, setExpenses] = useState([])
     const [error, setError] = useState(null)
@@ -20,8 +20,20 @@ export const GlobalProvider = ({children}) => {
         children: PropTypes.node.isRequired,
     };
 
+    const addFormData = async (param1, param2, param3) => {
+            
+        const response = await axios.post(`${BASE_URL}add-form-data`)
+            .catch((err) => {
+                setError(err.response.data.message)
+            });
+    
+        if (response && response.data) {
+            setRetirement(response.data);
+        }
+    }
+
     const getUsers = async () => {
-        const response = await axios.get(`${BASE_URL}user-info`)
+        const response = await axios.get(`${BASE_URL}get-user`)
         .catch((err) => {
             setError(err.response.data.message)
         })
@@ -110,8 +122,10 @@ export const GlobalProvider = ({children}) => {
             getIncomes,
             incomes,
             deleteIncome,
+            retirement,
             expenses,
             users,
+            addFormData,
             getUsers,
             totalIncome,
             addExpense,
