@@ -12,6 +12,7 @@ export const GlobalStyle = createGlobalStyle`
         --primary-color: #222260;
         --primary-color2: 'color: rgba(34, 34, 96, .6)';
         --primary-color3: 'color: rgba(34, 34, 96, .4)';
+        --primary-color4: 'color: white';
         --primary-color4-green: #008000; /* Replace #008000 with the green color you want */
         --primary-color4-red: #FF0000; /* Replace #FF0000 with the red color you want */
         --color-green: #42AD00;
