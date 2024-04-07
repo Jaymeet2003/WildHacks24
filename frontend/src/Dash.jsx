@@ -31,12 +31,10 @@ function Dash() {
         case 4: 
             return <Expenses />
         case 5:
-            return <SavingsBatl />
-        case 6:
             return <Quiz />
-        case 7: 
+        case 6: 
             return <Retirement />
-        case 8:
+        case 7:
             return <StockTable />
         default: 
             return <Dashboard />
