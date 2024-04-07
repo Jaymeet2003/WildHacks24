@@ -8,6 +8,10 @@ import { menuItems } from './menuItems'
 import PropTypes from 'prop-types';
 
 function Navigation({ active, setActive }) {
+
+    const handleLogout = () =>{
+        window.location.href = "http://localhost:3000/logout";
+    };
     
     return (
         <NavStyled>
@@ -32,7 +36,7 @@ function Navigation({ active, setActive }) {
             </ul>
             <div className="bottom-nav">
                 <li>
-                    {signout} Sign Out
+                    {signout}  <SignoutButton onClick={handleLogout}>Logout</SignoutButton>
                 </li>
             </div>
         </NavStyled>
@@ -136,5 +140,11 @@ const NavStyled = styled.nav`
         }
     }
 `;
+
+
+const SignoutButton = styled.button`
+
+`;
+
 
 export default Navigation
