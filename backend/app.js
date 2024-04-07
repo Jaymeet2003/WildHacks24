@@ -8,6 +8,8 @@ require("dotenv").config();
 const session = require("express-session");
 
 const userDB = require("./model/userSchema");
+const Income = require("./model/incomeSchema");
+const Expense = require("./model/expenseSchema");
 
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 
@@ -274,3 +276,123 @@ app.get("/user-info", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+app.post("/add-income", async (req, res) => {
+  try {
+    const { title, amount, type, date, category, description } =
+      req.body;
+    const income = new Income({
+      userId: req.user._id,
+      title,
+      amount,
+      type,
+      date,
+      category,
+      description,
+    });
+    await income.save();
+    res.status(201).send(income);
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+console.log(income)
+
+});
+
+app.get("/get-income", async (req, res) => {
+  try {
+    const income = await Income.find().sort({createdAt: -1})
+    ; // Use Mongoose's findById() method
+
+    if (!income) {
+      return res.status(404).send({ message: "Income not found" });
+    }
+
+    res.status(200).send(income);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+
+app.delete("/delete-income/:id", async (req, res) => {
+  try {
+    // Extract the ID from the URL parameter
+    const { id } = req.params;
+
+    const income = await Income.findByIdAndDelete(id);
+
+    // If no income was found to delete, send a 404 response
+    if (!income) {
+      return res.status(404).send({ message: "Income not found" });
+    }
+
+    // If the delete operation was successful, log the deleted income and send a success response
+    console.log("Deleted income:", income);
+    res.status(200).send({ message: "Income successfully deleted", deletedIncome: income });
+  } catch (error) {
+    // If an error occurs, send a 400 response with the error message
+    res.status(400).send({ message: error.message });
+  }
+});
+
+
+app.post("/add-expense", async (req, res) => {
+  try {
+    const { title, amount, type, date, category, description } =
+      req.body;
+    const expense = new Expense({
+      userId: req.user._id,
+      title,
+      amount,
+      type,
+      date,
+      category,
+      description,
+    });
+    await expense.save();
+    res.status(201).send(expense);
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+console.log(expense)
+
+});
+
+app.get("/get-expense", async (req, res) => {
+  try {
+    const expense = await Expense.find().sort({createdAt: -1})
+    ; // Use Mongoose's findById() method
+
+    if (!expense) {
+      return res.status(404).send({ message: "expense not found" });
+    }
+
+    res.status(200).send(expense);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+
+
+app.delete("/delete-expense/:id", async (req, res) => {
+  try {
+    // Extract the ID from the URL parameter
+    const { id } = req.params;
+
+    // Attempt to delete the expense
+    const expense = await Expense.findByIdAndDelete(id);
+
+    // If no expense was found to delete, send a 404 response
+    if (!expense) {
+      return res.status(404).send({ message: "Expense not found" });
+    }
+
+    // If the delete operation was successful, log the deleted expense and send a success response
+    console.log("Deleted expense:", expense);
+    res.status(200).send({ message: "Expense successfully deleted", deletedExpense: expense });
+  } catch (error) {
+    // If an error occurs, send a 400 response with the error message
+    res.status(400).send({ message: error.message });
+  }
+});
+
