@@ -25,4 +25,29 @@ export const menuItems = [
         icon: expenses,
         link: "/dashboard",
     },
+    {   
+        id: 5,
+        title: "Savings Battles",
+        icon: dashboard,
+        link: "/",
+    },
+    {
+        id: 6,
+        title: "Earn Rewards",
+        icon: dashboard,
+        link: "/",
+    },
+    {
+        id: 7,
+        title: "Retirement Calculator",
+        icon: dashboard,
+        link: "/",
+    },
+    {
+        id: 8,
+        title: "Portfolio Tracker",
+        icon: dashboard,
+        link: "/",
+    },
+    
 ]

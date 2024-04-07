@@ -44,7 +44,7 @@ function Chart() {
                     const income = incomes.find(inc => dateFormat(inc.date) === date);
                     return income ? income.amount : 0;
                 }),
-                backgroundColor: 'black',
+                backgroundColor: 'green',
                 tension: .2
             },
             {
@@ -63,10 +63,30 @@ function Chart() {
 
     return (
         <ChartStyled >
-            <Line data={data} />
+            <Line data={data} options={options} />
         </ChartStyled>
     )
 }
+
+const options = {
+    responsive: true,
+    scales: {
+        x: {
+            ticks: {
+                font: {
+                    size: 14, // Change the font size for x-axis labels
+                },
+            },
+        },
+        y: {
+            ticks: {
+                font: {
+                    size: 14, // Change the font size for y-axis labels
+                },
+            },
+        },
+    },
+};
 
 const ChartStyled = styled.div`
     background: #FCF6F9;
@@ -74,7 +94,9 @@ const ChartStyled = styled.div`
     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
     padding: 1rem;
     border-radius: 20px;
-    height: 100%;
+    box-sizing: border-box;
+    
+    
 `;
 
 export default Chart
