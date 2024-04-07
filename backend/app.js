@@ -156,6 +156,16 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next(); // Proceed to the next middleware or route handler
+  }
+  // User is not authenticated, redirect to root
+  res.redirect('/');
+}
+
+
 passport.use(
   new GoogleStrategy(
     {
@@ -226,7 +236,7 @@ app.get("/", (req, res) => {
   res.redirect(process.env.FRONTEND);
 });
 
-app.get("/login", (req, res) => {
+app.get("/login", ensureAuthenticated, (req, res) => {
   if (req.isAuthenticated()) {
     res.redirect(`${process.env.FRONTEND}/Dash`);
   } else {
@@ -236,8 +246,9 @@ app.get("/login", (req, res) => {
 
 app.get("/logout", (req, res) => {
   try {
-    res.clearCookie("connect.sid");
-    res.redirect("/");
+    req.session.destroy(() => {
+      res.clearCookie('connect.sid', {path: '/'}).status(200).redirect('/');
+    });
   } catch (error) {
     // Make sure the variable name matches here
     console.error(error); // Corrected to match the catch parameter
@@ -257,7 +268,7 @@ const server = app.listen(port, () => {
 
 //model calls
 
-app.get("/user-info", async (req, res) => {
+app.get("/user-info",ensureAuthenticated, async (req, res) => {
   if (!req.isAuthenticated()) {
     return res.status(401).send("User not authenticated");
   }
@@ -265,9 +276,7 @@ app.get("/user-info", async (req, res) => {
   try {
     const user = await userDB.findById(req.user._id);
     if (user) {
-      console.log(
-        res.json({ displayName: user.displayName, imageUrl: user.image }),
-      );
+        res.json({ displayName: user.displayName, imageUrl: user.image });
     } else {
       res.status(404).send("User not found");
     }
@@ -277,7 +286,7 @@ app.get("/user-info", async (req, res) => {
   }
 });
 
-app.post("/add-income", async (req, res) => {
+app.post("/add-income", ensureAuthenticated, async (req, res) => {
   try {
     const { title, amount, type, date, category, description } = req.body;
     const income = new Income({
@@ -297,7 +306,7 @@ app.post("/add-income", async (req, res) => {
   // console.log(income);
 });
 
-app.get("/get-income", async (req, res) => {
+app.get("/get-income",ensureAuthenticated, async (req, res) => {
   try {
     const income = await Income.find({ userId: req.user._id }).sort({
       createdAt: -1,
@@ -312,7 +321,7 @@ app.get("/get-income", async (req, res) => {
   }
 });
 
-app.delete("/delete-income/:id", async (req, res) => {
+app.delete("/delete-income/:id",ensureAuthenticated, async (req, res) => {
   try {
     // Extract the ID from the URL parameter
     const { id } = req.params;
@@ -338,7 +347,7 @@ app.delete("/delete-income/:id", async (req, res) => {
   }
 });
 
-app.post("/add-expense", async (req, res) => {
+app.post("/add-expense",ensureAuthenticated, async (req, res) => {
   try {
     const { title, amount, type, date, category, description } = req.body;
     const expense = new Expense({
@@ -358,7 +367,7 @@ app.post("/add-expense", async (req, res) => {
   // console.log(expense);
 });
 
-app.get("/get-expense", async (req, res) => {
+app.get("/get-expense",ensureAuthenticated, async (req, res) => {
   try {
     const expense = await Expense.find({ userId: req.user._id }).sort({
       createdAt: -1,
@@ -373,7 +382,7 @@ app.get("/get-expense", async (req, res) => {
   }
 });
 
-app.delete("/delete-expense/:id", async (req, res) => {
+app.delete("/delete-expense/:id",ensureAuthenticated, async (req, res) => {
   try {
     // Extract the ID from the URL parameter
     const { id } = req.params;
