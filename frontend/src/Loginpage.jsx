@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-
+//import backgroundImage from './backgroundlogin.png'; // Make sure to import your background image
+import Background from './background.jsx'; // Make sure to import your background component
 function LoginPage() {
     return (
         <LoginPageStyled>
             <Ribbon>
                 <Logo src="/logo.png" alt="Logo" />
-                <LoginButton>Login</LoginButton> {/* Moved LoginButton here for upper right positioning */}
+                <LoginButton>Login</LoginButton>
             </Ribbon>
             <MainContent>
-                <AboutParagraph>Finance Guru is the ultimate web app for young adults diving into finance, blending an easy expense tracker with a sleek stock portfolio tracker. With features like savings battles, reward-earning quizzes, and clear financial visuals, it turns money management into a fun, engaging journey. The highlight? A retirement planning tool that reveals the magic of investing over saving. Finance Guru isn’t just an app; it’s your first step towards financial savvy and freedom.</AboutParagraph>
+                <Background />
+                <AboutParagraph>Finance Guru is the go-to web app for young adults stepping into the world of finance, transforming money management into an adventure. Packed with a slick expense tracker, engaging quizzes, clear financial insights, dynamic stock portfolio tracker, and a retirement planner, which makes finance fun and interactive. Stand out with the Savings Battle, a feature that showcases the power of investing. Finance Guru is more than just a tool; it's your launchpad to financial freedom and mastery in the fast-paced productivity race.</AboutParagraph>
             </MainContent>
         </LoginPageStyled>
     );
@@ -21,6 +23,8 @@ const LoginPageStyled = styled.div`
     align-items: center;
     justify-content: center;
     height: 100vh;
+ 
+    background-size: cover; // Ensure the background covers the entire viewport
 `;
 
 const Ribbon = styled.div`
@@ -29,28 +33,26 @@ const Ribbon = styled.div`
     left: 0;
     width: 100%;
     background: #FCF6F9;
-    padding: 10px 20px; // Adjust padding for aesthetic
+    padding: 10px 20px;
     display: flex;
-    justify-content: space-between; // Adjusts content to each end
+    justify-content: space-between;
     align-items: center;
-    box-sizing: border-box;
+    z-index: 2; // Ensure the ribbon is above the background
 `;
 
 const Logo = styled.img`
-    /* Logo styles remain unchanged */
     margin-left: 20px;
-    width: 100px;
+    width: 125px;
     height: auto;
 `;
 
 const LoginButton = styled.button`
-    /* LoginButton styles modified for the upper right position */
     background: var(--color-primary, #f00);
     color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 20px;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
     &:hover {
         background: var(--color-primary-dark, #c00);
@@ -58,18 +60,26 @@ const LoginButton = styled.button`
 `;
 
 const MainContent = styled.div`
-    /* MainContent adjusted to center the AboutParagraph */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-grow: 1;
-    width: 80%; // Controls width of the content for better readability
+    width: 100%; // Adjusted to fill the width
+    font weight: bold;
 `;
 
 const AboutParagraph = styled.p`
-    /* AboutParagraph styles remain largely unchanged, ensuring it's centered */
-    color: #666;
+    color: 	#000000;
     text-align: center;
+    type: helvetica;
+    width: 80%; // Adjusted for better readability
+    background: #FCF6F9;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
+    border-radius: 20px;
+    padding: 1rem;
+    backdrop-filter: blur(20px); // Add a blur effect to the background
+    font-weight: bold;
 `;
 
 export default LoginPage;
