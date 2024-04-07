@@ -56,9 +56,9 @@ function Dashboard() {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="tip">
+                    <div className="tip">
                         <h2><Tip /></h2>
-                    </ div>   */}
+                    </ div>  
                 </div>
         </DashboardStyled>
     )
