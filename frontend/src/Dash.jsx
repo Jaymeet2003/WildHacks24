@@ -12,6 +12,7 @@ import History from './History';
 import SavingsBatl from './SavingsBatl';
 import Retirement from './Retirement';
 import Quiz from './Quiz';
+import StockTable from '../public/scrapping/stocktablecomponent';
 function Dash() {
     const [active, setActive] = useState(1)    
     const global = useGlobalContext()
@@ -35,6 +36,8 @@ function Dash() {
             return <Quiz />
         case 7: 
             return <Retirement />
+        case 8:
+            return <StockTable />
         default: 
             return <Dashboard />
         }

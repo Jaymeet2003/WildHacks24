@@ -18,7 +18,7 @@ function Dashboard() {
 
     return (
         <DashboardStyled>
-            <div className="Input-control">
+            {/* <div className="Input-control">
                 <select name="category" id="category">
                     <option value="" disabled >Select Option</option>
                     <option value="education">Education</option>
@@ -30,7 +30,7 @@ function Dashboard() {
                     <option value="travelling">Travelling</option>  
                     <option value="other">Other</option>  
                 </select>
-            </div>
+            </div> */}
                 <h1>All Transactions</h1>
                 <div className="stats-con">
                     <div className="chart-con">
