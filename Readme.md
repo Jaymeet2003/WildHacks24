@@ -14,7 +14,6 @@ Welcome to **Finance Guru**, the revolutionary web app designed to demystify the
 
 - **Retirement Planner**: Plan your future with our comprehensive retirement planning tool, ensuring you're on the right track to financial security.
 
-- **Savings Battle**: Experience the thrill of investing with Savings Battle, a unique feature that highlights the long-term benefits of smart financial choices.
 
 ## Built With
 
