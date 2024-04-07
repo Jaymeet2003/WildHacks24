@@ -5,14 +5,20 @@ import "./App.css";
 import Dashboard from "./dashboard.jsx";
 import LoginPage from "./Loginpage.jsx";
 import Dash from "./Dash.jsx";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <Dash/>
-      <LoginPage/>      
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/Dash" element={<Dash/>}></Route>
+        </Routes>
+      </Router>
+           
     </>
   );
 }
