@@ -20,17 +20,22 @@ const app = express();
 const OpenAI = require("openai");
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
+// budgeting tip
+
 app.get("/budgeting-tips", async (req, res) => {
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo-0125",
-      messages:[{
-        role: "system",
-        content: "Provide one budgeting tip."
-      }, {
-        role: "user",
-        content: "Provide one budgeting tip."
-      }],
+      messages: [
+        {
+          role: "system",
+          content: "Provide one budgeting tip.",
+        },
+        {
+          role: "user",
+          content: "Provide one budgeting tip.",
+        },
+      ],
       temperature: 0.7,
       max_tokens: 150,
       top_p: 1.0,
@@ -38,10 +43,46 @@ app.get("/budgeting-tips", async (req, res) => {
       presence_penalty: 0.0,
     });
 
-    try{
+    try {
       res.json({ tips: response.choices[0].message.content });
-    }catch(err){
-      console.log(err.data)
+    } catch (err) {
+      console.log(err.data);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred");
+  }
+});
+
+// quiz
+
+app.get("/quiz", async (req, res) => {
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo-0125",
+      messages: [
+        {
+          role: "system",
+          content:
+            "Create a multiple-choice question about basic financial literacy for young adults, including four options. Mark the correct answer and provide a brief explanation for why it's correct.",
+        },
+        {
+          role: "user",
+          content:
+            "Create a multiple-choice question about basic financial literacy for young adults, including four options. Mark the correct answer and provide a brief explanation for why it's correct.",
+        },
+      ],
+      temperature: 0.7,
+      max_tokens: 150,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+    });
+
+    try {
+      res.json({ output: response.choices[0].message.content });
+    } catch (err) {
+      console.log(err.data);
     }
   } catch (error) {
     console.error(error);
