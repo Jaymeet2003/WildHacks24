@@ -3,7 +3,7 @@ import axios from 'axios'
 import PropTypes from 'prop-types';
 
 
-const BASE_URL = "http://localhost:5000/api/v1/";
+const BASE_URL = "http://localhost:3000/";
 
 
 export const GlobalContext = React.createContext()
@@ -11,9 +11,24 @@ export const GlobalContext = React.createContext()
 export const GlobalProvider = ({children}) => {
 
     const [incomes, setIncomes] = useState([])
+    
+    const [users, setUsers] = useState([]);
     const [expenses, setExpenses] = useState([])
     const [error, setError] = useState(null)
+    
+    GlobalProvider.propTypes = {
+        children: PropTypes.node.isRequired,
+    };
 
+    const getUsers = async () => {
+        const response = await axios.get(`${BASE_URL}user-info`)
+        .catch((err) => {
+            setError(err.response.data.message)
+        })
+        if (response && response.data) {
+            setUsers(response.data);
+        }
+    }
     //calculate incomes
     const addIncome = async (income) => {
         const response = await axios.post(`${BASE_URL}add-income`, income)
@@ -22,14 +37,13 @@ export const GlobalProvider = ({children}) => {
             })
         getIncomes()
     }
-    GlobalProvider.propTypes = {
-        children: PropTypes.node.isRequired,
-    };
+    
     const getIncomes = async () => {
         const response = await axios.get(`${BASE_URL}get-incomes`)
         setIncomes(response.data)
         console.log(response.data)
     }
+
 
     const deleteIncome = async (id) => {
         const res  = await axios.delete(`${BASE_URL}delete-income/${id}`)
@@ -97,6 +111,8 @@ export const GlobalProvider = ({children}) => {
             incomes,
             deleteIncome,
             expenses,
+            users,
+            getUsers,
             totalIncome,
             addExpense,
             getExpenses,
