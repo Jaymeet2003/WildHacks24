@@ -3,11 +3,14 @@ import styled from 'styled-components';
 //import backgroundImage from './backgroundlogin.png'; // Make sure to import your background image
 import Background from './background.jsx'; // Make sure to import your background component
 function LoginPage() {
+    const handleLogin = () =>{
+        window.location.href = "http://localhost:3000/auth/google";
+    };
     return (
         <LoginPageStyled>
             <Ribbon>
                 <Logo src="/logo.png" alt="Logo" />
-                <LoginButton>Login</LoginButton>
+                <LoginButton onClick={handleLogin}>Login</LoginButton>
             </Ribbon>
             <MainContent>
                 <Background />

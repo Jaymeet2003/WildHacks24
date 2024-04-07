@@ -12,6 +12,8 @@ export const GlobalStyle = createGlobalStyle`
         --primary-color: #222260;
         --primary-color2: 'color: rgba(34, 34, 96, .6)';
         --primary-color3: 'color: rgba(34, 34, 96, .4)';
+        --primary-color4-green: #008000; /* Replace #008000 with the green color you want */
+        --primary-color4-red: #FF0000; /* Replace #FF0000 with the red color you want */
         --color-green: #42AD00;
         --color-grey: #aaa;
         --color-accent: #F56692;
@@ -26,6 +28,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     h1, h2, h3, h4, h5, h6{
+        size: 1.5rem;
         color: var(--primary-color);
     }
 
