@@ -5,7 +5,7 @@ const expenseSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId, // References ObjectId
       required: true,
-      ref: "user", // This is the name of the collection you're referencing
+      ref: "users", // This is the name of the collection you're referencing
     },
     title: {
       type: String,
@@ -43,6 +43,6 @@ const expenseSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-const expenseDB = new mongoose.model("expense", expenseSchema);
+const expenseDB = new mongoose.model("expenses", expenseSchema);
 
 module.exports = expenseDB;
