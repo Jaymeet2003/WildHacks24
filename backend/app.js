@@ -279,8 +279,7 @@ app.get("/user-info", async (req, res) => {
 
 app.post("/add-income", async (req, res) => {
   try {
-    const { title, amount, type, date, category, description } =
-      req.body;
+    const { title, amount, type, date, category, description } = req.body;
     const income = new Income({
       userId: req.user._id,
       title,
@@ -295,15 +294,12 @@ app.post("/add-income", async (req, res) => {
   } catch (error) {
     res.status(400).send({ message: error.message });
   }
-console.log(income)
-
+  // console.log(income);
 });
 
 app.get("/get-income", async (req, res) => {
   try {
-    const income = await Income.find().sort({createdAt: -1})
-    ; // Use Mongoose's findById() method
-
+    const income = await Income.find({ userId: req.user._id }).sort({ createdAt: -1 }); // Use Mongoose's findById() method
     if (!income) {
       return res.status(404).send({ message: "Income not found" });
     }
@@ -319,7 +315,7 @@ app.delete("/delete-income/:id", async (req, res) => {
     // Extract the ID from the URL parameter
     const { id } = req.params;
 
-    const income = await Income.findByIdAndDelete(id);
+    const income = await Income.findByIdAndDelete({ _id: id, userId: req.user._id });
 
     // If no income was found to delete, send a 404 response
     if (!income) {
@@ -328,18 +324,18 @@ app.delete("/delete-income/:id", async (req, res) => {
 
     // If the delete operation was successful, log the deleted income and send a success response
     console.log("Deleted income:", income);
-    res.status(200).send({ message: "Income successfully deleted", deletedIncome: income });
+    res
+      .status(200)
+      .send({ message: "Income successfully deleted", deletedIncome: income });
   } catch (error) {
     // If an error occurs, send a 400 response with the error message
     res.status(400).send({ message: error.message });
   }
 });
 
-
 app.post("/add-expense", async (req, res) => {
   try {
-    const { title, amount, type, date, category, description } =
-      req.body;
+    const { title, amount, type, date, category, description } = req.body;
     const expense = new Expense({
       userId: req.user._id,
       title,
@@ -354,15 +350,12 @@ app.post("/add-expense", async (req, res) => {
   } catch (error) {
     res.status(400).send({ message: error.message });
   }
-console.log(expense)
-
+  // console.log(expense);
 });
 
 app.get("/get-expense", async (req, res) => {
   try {
-    const expense = await Expense.find().sort({createdAt: -1})
-    ; // Use Mongoose's findById() method
-
+    const expense = await Expense.find({ userId: req.user._id }).sort({ createdAt: -1 }); // Use Mongoose's findById() method
     if (!expense) {
       return res.status(404).send({ message: "expense not found" });
     }
@@ -373,14 +366,13 @@ app.get("/get-expense", async (req, res) => {
   }
 });
 
-
 app.delete("/delete-expense/:id", async (req, res) => {
   try {
     // Extract the ID from the URL parameter
     const { id } = req.params;
 
     // Attempt to delete the expense
-    const expense = await Expense.findByIdAndDelete(id);
+    const expense = await Expense.findByIdAndDelete({ _id: id, userId: req.user._id });
 
     // If no expense was found to delete, send a 404 response
     if (!expense) {
@@ -389,10 +381,14 @@ app.delete("/delete-expense/:id", async (req, res) => {
 
     // If the delete operation was successful, log the deleted expense and send a success response
     console.log("Deleted expense:", expense);
-    res.status(200).send({ message: "Expense successfully deleted", deletedExpense: expense });
+    res
+      .status(200)
+      .send({
+        message: "Expense successfully deleted",
+        deletedExpense: expense,
+      });
   } catch (error) {
     // If an error occurs, send a 400 response with the error message
     res.status(400).send({ message: error.message });
   }
 });
-
