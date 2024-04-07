@@ -252,3 +252,25 @@ const port = process.env.PORT;
 const server = app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+//model calls
+
+app.get("/user-info", async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).send("User not authenticated");
+  }
+
+  try {
+    const user = await userDB.findById(req.user._id);
+    if (user) {
+      console.log(
+        res.json({ displayName: user.displayName, imageUrl: user.image }),
+      );
+    } else {
+      res.status(404).send("User not found");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+});
