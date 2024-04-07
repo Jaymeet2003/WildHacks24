@@ -56,6 +56,34 @@ app.get("/budgeting-tips", async (req, res) => {
 
 // quiz
 
+function parseQuizTips(generatedContent) {
+  try {
+    const parts = generatedContent.split("\n\n");
+    const question = parts[0];
+
+   const options = parts.filter(line => /^[A-D]\)/.test(line)).map(option => option.trim());
+
+    // Find the correct answer line; check if it's undefined before trimming
+    const correctAnswerLine = parts.find(part => part && part.startsWith("Correct Answer:"));
+    // Safely extract the correct answer, checking for undefined
+    const correctAnswer = correctAnswerLine ? correctAnswerLine.split(": ")[1]?.trim().charAt(0) : '';
+
+    // Ensure the explanation index is valid and the line exists; otherwise, provide a default value
+    const explanationIndex = parts.indexOf(correctAnswerLine) + 1;
+    const explanation = parts.length > explanationIndex ? parts[explanationIndex].split(": ")[1]?.trim() : '';
+
+    return {
+      question,
+      options,
+      correctAnswer,
+      explanation,
+    };
+  } catch (error) {
+    console.error("Error parsing generated content:", error);
+    return null;
+  }
+}
+
 app.get("/quiz", async (req, res) => {
   try {
     const response = await openai.chat.completions.create({
@@ -80,7 +108,13 @@ app.get("/quiz", async (req, res) => {
     });
 
     try {
-      res.json({ output: response.choices[0].message.content });
+      const generatedContent = (response.choices[0].message.content);
+
+      const parsedData = parseQuizTips(generatedContent);
+      // const parsedData = parseQuizTips(output.output);
+      console.log(parsedData);
+
+      res.json(parsedData);
     } catch (err) {
       console.log(err.data);
     }
