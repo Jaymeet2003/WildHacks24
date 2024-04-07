@@ -33,7 +33,7 @@ export const menuItems = [
     },
     {
         id: 6,
-        title: "Earn Rewards",
+        title: "Quiz Corner: Financial Wisdom Unlocked",
         icon: reward,
         link: "/",
     },

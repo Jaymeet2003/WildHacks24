@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        color: black;
+        background-color: #fff; /* Updated to white as per the new styles */
+        margin: 20px;
+    }
+    
+    h1 {
+        color: black;
+        text-align: center;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    tr {
+        /* New style from the additional CSS */
+        display: inline-block;
+        color: #4CAF50;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    
+    tr:hover, td:hover {
+        /* Combines hover effect for tr from the original with new hover style for td */
+        background-color: #fcf6f9;
+    }
+
+    a {
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: #4CAF50;
+        color: #fff;
+        text-decoration: none;
+        object-position: right;
+    }
+    
+    div.pagination {
+        margin-top: 20px;
+    }
+    
+    div.pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+    }
+    
+    div.pagination a:hover {
+        background-color: #ddd;
+    }
+    
+    div.pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+    
+    </style>
+</head>
+<body>
+    <h1>Stock Data</h1>
+    <table>
+        <tr>
+            <th>Symbol</th>
+            <th>Stock Price</th>
+        </tr>
+        {% for symbol, price in data.items() %}
+        <tr>
+            <td>{{ symbol }}</td> 
+            <td>{{ price }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <div class="Next">
+        {% if current_page > 1 %}
+            <a href="?page={{ current_page - 1 }}">Previous</a>
+        {% endif %}
+
+        {% if current_page < total_pages %}
+            <a href="?page={{ current_page + 1 }}">Next</a>
+        {% endif %}
+    </div>
+</body>
+</html>

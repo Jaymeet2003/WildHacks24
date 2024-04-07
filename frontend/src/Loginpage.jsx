@@ -14,7 +14,7 @@ function LoginPage() {
             </Ribbon>
             <MainContent>
                 <Background />
-                <AboutParagraph>Finance Guru is the go-to web app for young adults stepping into the world of finance, transforming money management into an adventure. Packed with a slick expense tracker, engaging quizzes, clear financial insights, dynamic stock portfolio tracker, and a retirement planner, which makes finance fun and interactive. Stand out with the Savings Battle, a feature that showcases the power of investing. Finance Guru is more than just a tool; it's your launchpad to financial freedom and mastery in the fast-paced productivity race.</AboutParagraph>
+                <AboutParagraph>Finance Guru is the go-to web app for young adults stepping into the world of finance, transforming money management into an adventure. Packed with a slick expense tracker, engaging quizzes, clear financial insights, dynamic stocks tracker, and a retirement planner, which makes finance fun and interactive. Stand out with the Savings Battle, a feature that showcases the power of investing. Finance Guru is more than just a tool; it's your launchpad to financial freedom and mastery in the fast-paced productivity race.</AboutParagraph>
             </MainContent>
         </LoginPageStyled>
     );
