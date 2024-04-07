@@ -65,7 +65,9 @@ export const GlobalProvider = ({children}) => {
     }
     
     const getIncomes = async () => {
-        const response = await fetch(`${BASE_URL}/get-income`);
+        const response = await fetch(`${BASE_URL}/get-income`,{
+            credentials: 'include',
+          });
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -126,7 +128,10 @@ export const GlobalProvider = ({children}) => {
     }
 
     const getExpenses = async () => {
-        const response = await fetch(`${BASE_URL}/get-expense`);
+        const response = await fetch(`${BASE_URL}/get-expense`,{
+            credentials: 'include',
+          });
+        
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }

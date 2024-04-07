@@ -5,7 +5,7 @@ const incomeSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId, // References ObjectId
       required: true,
-      ref: "user", // This is the name of the collection you're referencing
+      ref: "users", // This is the name of the collection you're referencing
     },
     title: {
       type: String,
@@ -43,6 +43,6 @@ const incomeSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-const incomeDB = new mongoose.model("income", incomeSchema);
+const incomeDB = new mongoose.model("incomes", incomeSchema);
 
 module.exports = incomeDB;
