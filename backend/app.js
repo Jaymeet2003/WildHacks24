@@ -17,13 +17,37 @@ const app = express();
 
 // apis
 
-// const configuration = new Configuration({
-//   apiKey: process.env.OPENAI_API_KEY,
-//   organization: process.env.OPENAI_API_ORGANIZATION,
-// });
+const OpenAI = require("openai");
+const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
-// const openai = new OpenAIApi(configuration);
+app.get("/budgeting-tips", async (req, res) => {
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo-0125",
+      messages:[{
+        role: "system",
+        content: "Provide one budgeting tip."
+      }, {
+        role: "user",
+        content: "Provide one budgeting tip."
+      }],
+      temperature: 0.7,
+      max_tokens: 150,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+    });
 
+    try{
+      res.json({ tips: response.choices[0].message.content });
+    }catch(err){
+      console.log(err.data)
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred");
+  }
+});
 
 // session
 
@@ -35,7 +59,6 @@ app.use(
     cookie: { maxAge: 1000 * 60 * 60 },
   }),
 );
-
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -118,19 +141,19 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  if(req.isAuthenticated()){
+  if (req.isAuthenticated()) {
     res.json({ message: "Success" });
-  }else{
+  } else {
     res.json({ message: "Failed" });
   }
 });
 
-
-app.get("/logout", (req,res) =>{
+app.get("/logout", (req, res) => {
   try {
     res.clearCookie("connect.sid");
     res.redirect("/");
-  } catch (error) { // Make sure the variable name matches here
+  } catch (error) {
+    // Make sure the variable name matches here
     console.error(error); // Corrected to match the catch parameter
     res.status(500).send("Internal server error");
   }
