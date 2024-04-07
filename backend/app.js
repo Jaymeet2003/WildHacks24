@@ -201,7 +201,7 @@ require("./db/conn");
 app.use(morgan("dev"));
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:5173",
     methods: "GET, POST, PUT, DELETE",
     credentials: true,
   }),
@@ -212,14 +212,14 @@ app.use(express.json());
 // routes
 
 app.get("/", (req, res) => {
-  res.json({ message: "Hello World!" });
+  res.redirect("http://localhost:5173");
 });
 
 app.get("/login", (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ message: "Success" });
   } else {
-    res.json({ message: "Failed" });
+    res.redirect("/");
   }
 });
 
