@@ -11,17 +11,40 @@ export const GlobalProvider = ({children}) => {
 
     const [incomes, setIncomes] = useState([])
     const [retirement, setRetirement] = useState([]);
-    const [users, setUsers] = useState([]);
+    const [users, setUserData] = useState([]);
     const [expenses, setExpenses] = useState([])
     const [error, setError] = useState(null)
-    
+    const [firstTime, setfirstTime] = useState([]);
     GlobalProvider.propTypes = {
         children: PropTypes.node.isRequired,
     };
 
+    const addFirstData = async (firstTime) => {
+        try {
+            const response = await fetch(`${BASE_URL}/add-first-data`, {
+                method: 'POST',
+                credentials: 'include', // Important for CORS and sending cookies
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(firstTime), // Uncomment this line if you have data to send with the request
+                    
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            setfirstTime(data);
+        } catch (error) {
+            setError(error.message);
+        }
+    }
+
     const addFormData = async (param1, param2, param3) => {
             
-        const response = await axios.post(`${BASE_URL}add-form-data`)
+        const response = await axios.post(`${BASE_URL}/add-form-data`)
             .catch((err) => {
                 setError(err.response.data.message)
             });
@@ -32,13 +55,19 @@ export const GlobalProvider = ({children}) => {
     }
 
     const getUsers = async () => {
-        const response = await axios.get(`${BASE_URL}get-user`)
-        .catch((err) => {
-            setError(err.response.data.message)
-        })
-        if (response && response.data) {
-            setUsers(response.data);
-        }
+        try {
+            const response = await fetch('http://localhost:3000/user-info', {
+              method: 'GET',
+              credentials: 'include', // Important for CORS and sending cookies
+            });
+            if (!response.ok) {
+              throw new Error('Failed to fetch user data');
+            }
+            const data = await response.json();
+            setUserData({ displayName: data.displayName, imageUrl: data.imageUrl }); // Update the state with fetched data
+          } catch (error) {
+            console.error('Error:', error);
+          }
     }
     //calculate incomes
     const addIncome = async (income) => {
@@ -189,6 +218,7 @@ export const GlobalProvider = ({children}) => {
             retirement,
             expenses,
             users,
+            addFirstData,
             addFormData,
             getUsers,
             totalIncome,

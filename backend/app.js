@@ -10,12 +10,19 @@ const session = require("express-session");
 const userDB = require("./model/userSchema");
 const Income = require("./model/incomeSchema");
 const Expense = require("./model/expenseSchema");
+const guidedIncomeDB = require("./model/guidedIncomeSchema");
 
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 // app
 
 const app = express();
+
+// middleware
+
+app.use(morgan("dev"));
+
+app.use(express.json());
 
 app.use(
   cors({
@@ -24,6 +31,24 @@ app.use(
     credentials: true,
   }),
 );
+
+app.post("/add-first-data", async (req, res) => {
+  try {
+    const { yearlyIncome, goal, occupation } = req.body;
+    const guidedIncome = new guidedIncomeDB({
+      userId: req.user._id,
+      yearlyIncome,
+      goal,
+      occupation,
+    });
+
+    await guidedIncome.save();
+    res.status(201).send(guidedIncome);
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+  // console.log(expense);
+});
 // apis
 
 const OpenAI = require("openai");
@@ -181,9 +206,9 @@ passport.use(
           await user.save();
         }
 
-        return done(null, user);
+        return done(null, user, { redirectURL: "/add-first-data" });
       } catch (error) {
-        return done(error, null);
+        return done(error, null, { redirectURL: "/dashboard" });
       }
     },
   ),
@@ -205,20 +230,17 @@ app.get(
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/login",
     failureRedirect: "/",
   }),
+  (req, res) => {
+    // Redirect to the URL specified in the done callback
+    res.redirect(req.authInfo.redirectURL);
+  },
 );
 
 // db
 
 require("./db/conn");
-
-// middleware
-
-app.use(morgan("dev"));
-
-app.use(express.json());
 
 // routes
 
@@ -299,7 +321,9 @@ app.post("/add-income", async (req, res) => {
 
 app.get("/get-income", async (req, res) => {
   try {
-    const income = await Income.find({ userId: req.user._id }).sort({ createdAt: -1 }); // Use Mongoose's findById() method
+    const income = await Income.find({ userId: req.user._id }).sort({
+      createdAt: -1,
+    }); // Use Mongoose's findById() method
     if (!income) {
       return res.status(404).send({ message: "Income not found" });
     }
@@ -315,7 +339,10 @@ app.delete("/delete-income/:id", async (req, res) => {
     // Extract the ID from the URL parameter
     const { id } = req.params;
 
-    const income = await Income.findByIdAndDelete({ _id: id, userId: req.user._id });
+    const income = await Income.findByIdAndDelete({
+      _id: id,
+      userId: req.user._id,
+    });
 
     // If no income was found to delete, send a 404 response
     if (!income) {
@@ -355,7 +382,9 @@ app.post("/add-expense", async (req, res) => {
 
 app.get("/get-expense", async (req, res) => {
   try {
-    const expense = await Expense.find({ userId: req.user._id }).sort({ createdAt: -1 }); // Use Mongoose's findById() method
+    const expense = await Expense.find({ userId: req.user._id }).sort({
+      createdAt: -1,
+    }); // Use Mongoose's findById() method
     if (!expense) {
       return res.status(404).send({ message: "expense not found" });
     }
@@ -372,7 +401,10 @@ app.delete("/delete-expense/:id", async (req, res) => {
     const { id } = req.params;
 
     // Attempt to delete the expense
-    const expense = await Expense.findByIdAndDelete({ _id: id, userId: req.user._id });
+    const expense = await Expense.findByIdAndDelete({
+      _id: id,
+      userId: req.user._id,
+    });
 
     // If no expense was found to delete, send a 404 response
     if (!expense) {
@@ -381,12 +413,10 @@ app.delete("/delete-expense/:id", async (req, res) => {
 
     // If the delete operation was successful, log the deleted expense and send a success response
     console.log("Deleted expense:", expense);
-    res
-      .status(200)
-      .send({
-        message: "Expense successfully deleted",
-        deletedExpense: expense,
-      });
+    res.status(200).send({
+      message: "Expense successfully deleted",
+      deletedExpense: expense,
+    });
   } catch (error) {
     // If an error occurs, send a 400 response with the error message
     res.status(400).send({ message: error.message });
