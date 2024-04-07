@@ -8,7 +8,7 @@ import Dashboard from './dashboard';
 import Income from './Income'
 import Expenses from './Expenses';
 import { useGlobalContext } from './useGlobalContext';
-
+import History from './History';
 
 function Dash() {
     const [active, setActive] = useState(1)    
@@ -22,7 +22,7 @@ function Dash() {
         case 1:
             return <Dashboard />
         case 2:
-            return <Dashboard />
+            return <History />
         case 3:
             return <Income />
         case 4: 

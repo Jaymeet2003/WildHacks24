@@ -37,7 +37,11 @@ function History() {
 const HistoryStyled = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    padding-top: 2rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    gap: 0.5rem;
+    
     .history-item{
         background: #FCF6F9;
         border: 2px solid #FFFFFF;
@@ -45,7 +49,7 @@ const HistoryStyled = styled.div`
         padding: 1rem;
         border-radius: 20px;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
     }
 `;

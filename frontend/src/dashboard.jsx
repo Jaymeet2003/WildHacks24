@@ -108,9 +108,11 @@ h1{
     h2{
         font-size: 1.5rem;
         margin-bottom: 1rem;
-        
+        text-align: center;
     }
-    
+    p{
+        text-align: center;
+    }
     background: #FCF6F9;
     border: 2px solid #FFFFFF;
     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);

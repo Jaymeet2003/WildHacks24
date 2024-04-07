@@ -102,7 +102,7 @@ function IncomeItem({
                             bg={'var(--primary-color'}
                             color={'#fff'}
                             iColor={'#fff'}
-                            hColor={'var(--color-green)'}
+                            hColor={'var(--color-red)'}
                             onClick={() => deleteItem(id)}
                         />
                     </div>
@@ -117,7 +117,7 @@ const IncomeItemStyled = styled.div`
     border: 2px solid #FFFFFF;
     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
     border-radius: 20px;
-    padding: 1rem;
+    padding-right: 1rem;
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
@@ -164,6 +164,8 @@ const IncomeItemStyled = styled.div`
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem;
+            
             .text{
                 display: flex;
                 align-items: center;
@@ -172,11 +174,12 @@ const IncomeItemStyled = styled.div`
                     display: flex;
                     align-items: center;
                     gap: 0.5rem;
-                    color: var(--primary-color);
+                    color: var(--primary-color4);
                     opacity: 0.8;
                 }
             }
         }
+        
     }
 `;
 

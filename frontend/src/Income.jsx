@@ -32,7 +32,7 @@ function Income() {
                                 date={date} 
                                 type={type}
                                 category={category} 
-                                indicatorColor="var(--color-green)"
+                                indicatorColor="var(--primary-color4-green)"
                                 deleteItem={deleteIncome}
                             />
                         })}
@@ -45,11 +45,13 @@ function Income() {
 
 const IncomeStyled = styled.div`
     h1{
-        padding-left: 7rem;
+        padding-left: 17rem;
     }
     display: flex;
     overflow: auto;
-    padding-left: 25rem;
+    padding-left: 8%;
+    padding-right: 20%;
+    padding-top: 0.4rem;
     .total-income{
         display: flex;
         justify-content: center;
@@ -65,7 +67,14 @@ const IncomeStyled = styled.div`
         span{
             font-size: 2.5rem;
             font-weight: 800;
-            color: var(--color-green);
+            color: var(--primary-color4-green);
+        }
+    }
+    .income-content{
+        display: flex;
+        gap: 2rem;
+        .incomes{
+            flex: 1;
         }
     }
     
