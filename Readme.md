@@ -1,6 +1,3 @@
-Here's the combined markdown content, including the project overview and the installation guide, ready for use in a single markdown file:
-
-```markdown
 # Finance Guru: Your Personal Finance Companion
 
 Welcome to **Finance Guru**, the revolutionary web app designed to demystify the complex world of finance for young adults. Whether you're just starting out or looking to elevate your financial wisdom, Finance Guru is your perfect partner, blending cutting-edge technology with engaging features to make money management both enlightening and enjoyable.
@@ -8,24 +5,36 @@ Welcome to **Finance Guru**, the revolutionary web app designed to demystify the
 ## Features
 
 - **Sleek Expense Tracker**: Say goodbye to the guesswork. Our intuitive tracker simplifies logging expenses, helping you stay on top of your spending habits.
+
 - **Engaging Financial Quizzes**: Challenge yourself with quizzes designed to boost your financial literacy, tailored to your skill level.
+
 - **Clear Financial Insights**: Get personalized insights into your financial health, empowering you with the knowledge to make smarter decisions.
+
 - **Dynamic Stocks Tracker**: Venture into the stock market with confidence. Our real-time tracker and analytics make it easy to follow your investments.
+
 - **Retirement Planner**: Plan your future with our comprehensive retirement planning tool, ensuring you're on the right track to financial security.
+
 - **Savings Battle**: Experience the thrill of investing with Savings Battle, a unique feature that highlights the long-term benefits of smart financial choices.
 
 ## Built With
 
 - **OpenAI & Python**: Leveraging AI to provide personalized advice and automated financial planning.
+  
 - **Node.js & Express**: The backbone of our app, ensuring robust backend functionality and seamless API integration.
-- **React.js & Tailwind CSS**: A dynamic and responsive front-end, crafted for an immersive user experience.
-- **Chart.js**: Beautiful, interactive charts for real-time financial data visualization.
-- **MongoDB**: A scalable database solution for storing user data and financial records securely.
-- **Google OAuth**: Simplified and secure login process, with data protection at its core.
-- **Web Scraping**: Extracting up-to-date financial news and stock market trends to keep you informed.
-- **Express Session & Cors**: Managing user sessions and enabling cross-origin requests for a smooth, secure user journey.
-- **Morgan & Routers**: Logging and managing routes efficiently for a flawless navigation experience.
 
+- **React.js & Tailwind CSS**: A dynamic and responsive front-end, crafted for an immersive user experience.
+
+- **Chart.js**: Beautiful, interactive charts for real-time financial data visualization.
+
+- **MongoDB**: A scalable database solution for storing user data and financial records securely.
+
+- **Google OAuth**: Simplified and secure login process, with data protection at its core.
+
+- **Web Scraping**: Extracting up-to-date financial news and stock market trends to keep you informed.
+
+- **Express Session & Cors**: Managing user sessions and enabling cross-origin requests for a smooth, secure user journey.
+
+- **Morgan & Routers**: Logging and managing routes efficiently for a flawless navigation experience.
 ## Installation Guide
 
 Ensure you have Node.js and npm (Node Package Manager) installed on your system to run this project. MongoDB should be set up for database requirements. Python is needed for running any scripts or AI models integrated with OpenAI.
@@ -33,52 +42,15 @@ Ensure you have Node.js and npm (Node Package Manager) installed on your system 
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/your-repository/FinanceGuru.git
+   git clone https://github.com/Jaymeet2003/WildHacks24.git
    cd FinanceGuru
-   ```
+2. Install dependencies
 
-2. **Install dependencies**
+For the backend (assuming you're in the project root directory):
 
-   For the backend (assuming you're in the project root directory):
+cd backend
+npm install
 
-   ```bash
-   cd backend
-   npm install
-   ```
-
-   For the frontend:
-
-   ```bash
-   cd frontend
-   npm install
-   ```
-
-3. **Set up environment variables**
-
-   Create a `.env` file in your backend directory. You will need to specify your MongoDB URI, Google OAuth credentials, and any other environment variables required by the project.
-
-   ```plaintext
-   MONGO_URI=your_mongodb_uri
-   GOOGLE_CLIENT_ID=your_google_client_id
-   GOOGLE_CLIENT_SECRET=your_google_client_secret
-   ```
-
-4. **Run the application**
-
-   To start the backend server:
-
-   ```bash
-   npm start
-   ```
-
-   To run the frontend development server:
-
-   ```bash
-   cd frontend
-   npm start
-   ```
-
-   Visit `http://localhost:3000` in your web browser to view the app.
 
 ## Deployment
 
@@ -96,9 +68,3 @@ Embark on your financial adventure with Finance Guru today and transform how you
 
 Your journey is important to us. We're constantly striving to improve Finance Guru, and your feedback is invaluable. Share your experience and suggestions, and let's make finance fun together.
 
----
-
-**Finance Guru** is more than an app; it's a movement towards financial empowerment and literacy. Join us, and take the first step towards mastering your finances in the fast-paced world of today.
-```
-
-Ensure to replace the placeholder URL `https://github.com/your-repository/FinanceGuru.git` with the actual URL of your project repository. This markdown file is now ready to be used as a comprehensive guide and overview for your project, perfect for a GitHub README or other project documentation platforms.
