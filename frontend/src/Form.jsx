@@ -12,6 +12,7 @@ function Form() {
     const [inputState, setInputState] = useState({
         title: '',
         amount: '',
+        type: '',
         date: '',
         category: '',
         description: '',
@@ -30,6 +31,7 @@ function Form() {
         setInputState({
             title: '',
             amount: '',
+            type: '',
             date: '',
             category: '',
             description: '',
