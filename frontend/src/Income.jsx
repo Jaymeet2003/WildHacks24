@@ -44,8 +44,12 @@ function Income() {
 }
 
 const IncomeStyled = styled.div`
+    h1{
+        padding-left: 7rem;
+    }
     display: flex;
     overflow: auto;
+    padding-left: 25rem;
     .total-income{
         display: flex;
         justify-content: center;
@@ -64,13 +68,7 @@ const IncomeStyled = styled.div`
             color: var(--color-green);
         }
     }
-    .income-content{
-        display: flex;
-        gap: 2rem;
-        .incomes{
-            flex: 1;
-        }
-    }
+    
 `;
 
 export default Income
