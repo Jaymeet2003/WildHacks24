@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import avatar from './img/avatar.png'
 import { signout } from './Icons'
@@ -9,17 +9,41 @@ import PropTypes from 'prop-types';
 
 function Navigation({ active, setActive }) {
 
+    const [userData, setUserData] = useState({
+        displayName: '', // Default empty string
+        imageUrl: '', // Default empty string for the avatar image
+    });
+
     const handleLogout = () =>{
         window.location.href = "http://localhost:3000/logout";
     };
+
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+              const response = await fetch('http://localhost:3000/user-info', {
+                method: 'GET',
+                credentials: 'include', // Important for CORS and sending cookies
+              });
+              if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+              }
+              const data = await response.json();
+              setUserData({ displayName: data.displayName, imageUrl: data.imageUrl }); // Update the state with fetched data
+            } catch (error) {
+              console.error('Error:', error);
+            }
+        };
+        fetchUserData();
+    },[]);
     
     return (
         <NavStyled>
             <div className="user-con">
-                <img src={avatar} alt="" />
+                <img src={userData.imageUrl} alt="" />
                 <div className="text">
-                    <h2>Mike</h2>
-                    <p>Your Money</p>
+                    <h2>{userData.displayName}</h2>
                 </div>
             </div>
             <ul className="menu-items">
