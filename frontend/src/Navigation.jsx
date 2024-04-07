@@ -59,9 +59,12 @@ function Navigation({ active, setActive }) {
                 })}
             </ul>
             <div className="bottom-nav">
-                <li>
-                    {signout}  <SignoutButton onClick={handleLogout}>Logout</SignoutButton>
-                </li>
+                
+                      <SignoutButton onClick={handleLogout}>
+                        Logout
+                        {signout}
+                      </SignoutButton>
+                
             </div>
         </NavStyled>
     )
@@ -128,23 +131,15 @@ const NavStyled = styled.nav`
         }
     }
     .bottom-nav{
-        li{
-            display: grid;
-            grid-template-columns: 95px auto;
-            align-items: center;
-            margin: .6rem 0;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all .4s ease-in-out;
-            color: rgba(34, 34, 96, .6);
-            padding-left: 1rem;
-            position: relative;
-            i{
-                color: rgba(34, 34, 96, 0.6);
-                font-size: 1.4rem;
-                transition: all .4s ease-in-out;
-            }
-        }
+        
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-size: 20px;
+        
+        
+       
     }
 
     .active{
@@ -167,6 +162,24 @@ const NavStyled = styled.nav`
 
 
 const SignoutButton = styled.button`
+    background: var(--color-primary, #f00);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 20px;
+    i{
+        margin-left: 10px;
+        color: white;
+        &:hover {
+            color: var(--primary-color, #222260);
+        }
+    }
+    cursor: pointer;
+    &:hover {
+        background: var(--color-primary-dark, #c00);
+    }
+    
 
 `;
 
