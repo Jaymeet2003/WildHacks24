@@ -17,6 +17,13 @@ var GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 const app = express();
 
+app.use(
+  cors({
+    origin: process.env.FRONTEND,
+    methods: "GET, POST, PUT, DELETE",
+    credentials: true,
+  }),
+);
 // apis
 
 const OpenAI = require("openai");
@@ -210,13 +217,6 @@ require("./db/conn");
 // middleware
 
 app.use(morgan("dev"));
-app.use(
-  cors({
-    origin: process.env.FRONTEND,
-    methods: "GET, POST, PUT, DELETE",
-    credentials: true,
-  }),
-);
 
 app.use(express.json());
 

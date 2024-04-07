@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react"
 import axios from 'axios'
 import PropTypes from 'prop-types';
 
-
 const BASE_URL = "http://localhost:3000";
 
 
@@ -11,9 +10,36 @@ export const GlobalContext = React.createContext()
 export const GlobalProvider = ({children}) => {
 
     const [incomes, setIncomes] = useState([])
+    const [retirement, setRetirement] = useState([]);
+    const [users, setUsers] = useState([]);
     const [expenses, setExpenses] = useState([])
     const [error, setError] = useState(null)
+    
+    GlobalProvider.propTypes = {
+        children: PropTypes.node.isRequired,
+    };
 
+    const addFormData = async (param1, param2, param3) => {
+            
+        const response = await axios.post(`${BASE_URL}add-form-data`)
+            .catch((err) => {
+                setError(err.response.data.message)
+            });
+    
+        if (response && response.data) {
+            setRetirement(response.data);
+        }
+    }
+
+    const getUsers = async () => {
+        const response = await axios.get(`${BASE_URL}get-user`)
+        .catch((err) => {
+            setError(err.response.data.message)
+        })
+        if (response && response.data) {
+            setUsers(response.data);
+        }
+    }
     //calculate incomes
     const addIncome = async (income) => {
         try {
@@ -37,9 +63,7 @@ export const GlobalProvider = ({children}) => {
             setError(error.message);
           }
     }
-    GlobalProvider.propTypes = {
-        children: PropTypes.node.isRequired,
-    };
+    
     const getIncomes = async () => {
         const response = await fetch(`${BASE_URL}/get-income`);
         if (!response.ok) {
@@ -49,6 +73,7 @@ export const GlobalProvider = ({children}) => {
         setIncomes(data); // Use the parsed JSON data directly
         console.log(data);
     }
+
 
     const deleteIncome = async (id) => {
         try {
@@ -156,7 +181,11 @@ export const GlobalProvider = ({children}) => {
             getIncomes,
             incomes,
             deleteIncome,
+            retirement,
             expenses,
+            users,
+            addFormData,
+            getUsers,
             totalIncome,
             addExpense,
             getExpenses,
