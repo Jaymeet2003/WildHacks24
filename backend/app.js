@@ -72,7 +72,7 @@ function parseQuizTips(generatedContent) {
 
     const options = parts
       .filter((line) => /^[A-D]\)/.test(line))
-      .map((option) => option.trim());
+      .map((option) => option.trim().split("\n"));
 
     // Find the correct answer line; check if it's undefined before trimming
     const correctAnswerLine = parts.find(
@@ -299,7 +299,9 @@ app.post("/add-income", async (req, res) => {
 
 app.get("/get-income", async (req, res) => {
   try {
-    const income = await Income.find({ userId: req.user._id }).sort({ createdAt: -1 }); // Use Mongoose's findById() method
+    const income = await Income.find({ userId: req.user._id }).sort({
+      createdAt: -1,
+    }); // Use Mongoose's findById() method
     if (!income) {
       return res.status(404).send({ message: "Income not found" });
     }
@@ -315,7 +317,10 @@ app.delete("/delete-income/:id", async (req, res) => {
     // Extract the ID from the URL parameter
     const { id } = req.params;
 
-    const income = await Income.findByIdAndDelete({ _id: id, userId: req.user._id });
+    const income = await Income.findByIdAndDelete({
+      _id: id,
+      userId: req.user._id,
+    });
 
     // If no income was found to delete, send a 404 response
     if (!income) {
@@ -355,7 +360,9 @@ app.post("/add-expense", async (req, res) => {
 
 app.get("/get-expense", async (req, res) => {
   try {
-    const expense = await Expense.find({ userId: req.user._id }).sort({ createdAt: -1 }); // Use Mongoose's findById() method
+    const expense = await Expense.find({ userId: req.user._id }).sort({
+      createdAt: -1,
+    }); // Use Mongoose's findById() method
     if (!expense) {
       return res.status(404).send({ message: "expense not found" });
     }
@@ -372,7 +379,10 @@ app.delete("/delete-expense/:id", async (req, res) => {
     const { id } = req.params;
 
     // Attempt to delete the expense
-    const expense = await Expense.findByIdAndDelete({ _id: id, userId: req.user._id });
+    const expense = await Expense.findByIdAndDelete({
+      _id: id,
+      userId: req.user._id,
+    });
 
     // If no expense was found to delete, send a 404 response
     if (!expense) {
@@ -381,12 +391,10 @@ app.delete("/delete-expense/:id", async (req, res) => {
 
     // If the delete operation was successful, log the deleted expense and send a success response
     console.log("Deleted expense:", expense);
-    res
-      .status(200)
-      .send({
-        message: "Expense successfully deleted",
-        deletedExpense: expense,
-      });
+    res.status(200).send({
+      message: "Expense successfully deleted",
+      deletedExpense: expense,
+    });
   } catch (error) {
     // If an error occurs, send a 400 response with the error message
     res.status(400).send({ message: error.message });
