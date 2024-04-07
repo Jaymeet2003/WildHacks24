@@ -152,12 +152,12 @@ export const GlobalProvider = ({children}) => {
     }
 
     const totalExpenses = () => {
-        let totalIncome = 0;
+        let totalExpense = 0;
         expenses.forEach((expense) =>{
             totalExpense = totalExpense + expense.amount
         })
 
-        return totalExpenses;
+        return totalExpense;
     }
 
 
