@@ -4,7 +4,7 @@ function BudgetingTips() {
   const [tips, setTips] = useState('');
 
   useEffect(() => {
-    fetch('/budgeting-tips')
+    fetch('http://localhost:3000/budgeting-tips')
       .then(response => response.json())
       .then(data => setTips(data.tips))
       .catch(error => console.error('Error fetching budgeting tips:', error));
