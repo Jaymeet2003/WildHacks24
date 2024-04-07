@@ -217,7 +217,7 @@ app.get("/", (req, res) => {
 
 app.get("/login", (req, res) => {
   if (req.isAuthenticated()) {
-    res.json({ message: "Success" });
+    res.redirect("/dash");
   } else {
     res.redirect("/");
   }
